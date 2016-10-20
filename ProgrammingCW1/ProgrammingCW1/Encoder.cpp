@@ -2,14 +2,6 @@
 
 Encoder::Encoder()
 {
-	/*registers[0] = '0';
-	registers[1] = '0';
-	registers[2] = '0';*/
-
-	//XOR1[0] = 0; //Input Bit
-	//XOR1[1] = 1; //Register 1
-	//XOR2[0] = 2; //Register 2
-	//XOR2[1] = 3; //Register 3
 }
 
 
@@ -29,10 +21,9 @@ string Encoder::encode(string input)
 	//Initalise output string to allow appending
 	string output = "start:";
 
-	for (int i = 0; i <= (input.length() - 2); i++) {
-		//cout << *(registers + 0) << *(registers + 1) << *(registers + 2) << endl;
+	for (int i = 0; i <= (input.length() - 4); i++) {
 
-		//XOR
+		//XOR & add to output
 		output += XOR(*(registers + 1), *(registers + 2));
 		output += XOR(*(registers - 1), *(registers + 0));
 
@@ -53,9 +44,12 @@ char Encoder::XOR(char a, char b) {
 int main() {
 
 	string s = "10110";
+	cout << "Input: " << s.c_str() << endl;
 
 	Encoder* e = new Encoder();
-	e->encode(s);
+
+	s = e->encode(s);
+	cout << "Output: " << s.c_str() << endl;
 
 	system("pause");
 
