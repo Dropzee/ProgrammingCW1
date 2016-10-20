@@ -1,0 +1,4 @@
+﻿  Encoder.cpp
+c:\users\jackc\documents\uni\year 4\csc8501 - advanced programming for games\cw1\programmingcw1\programmingcw1\programmingcw1\encoder.cpp(32): warning C4018: '<=': signed/unsigned mismatch
+  ProgrammingCW1.vcxproj -> C:\Users\jackc\Documents\Uni\Year 4\CSC8501 - Advanced Programming for Games\CW1\ProgrammingCW1\ProgrammingCW1\Debug\ProgrammingCW1.exe
+  ProgrammingCW1.vcxproj -> C:\Users\jackc\Documents\Uni\Year 4\CSC8501 - Advanced Programming for Games\CW1\ProgrammingCW1\ProgrammingCW1\Debug\ProgrammingCW1.pdb (Full PDB)

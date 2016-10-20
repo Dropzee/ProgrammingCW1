@@ -9,10 +9,8 @@ public:
 	Encoder();
 	//Encoder(/*register setup?*/);
 	~Encoder();
-	string encode(string& input);
+	string encode(string input);
 private:
-	char registers[3];
-	int XOR1[2];
-	int XOR2[2];
+	char XOR(char a, char b);
 };
 
