@@ -9,7 +9,6 @@ Encoder::~Encoder()
 {
 }
 
-// ^ xor operator
 string Encoder::encode(string input)
 {
 	//Append 000 as initial register state
@@ -19,7 +18,7 @@ string Encoder::encode(string input)
 	char* registers = &input[input.length() - 3];
 
 	//Initalise output string to allow appending
-	string output = "start:";
+	string output = "";
 
 	for (int i = 0; i <= (input.length() - 4); i++) {
 
@@ -31,22 +30,49 @@ string Encoder::encode(string input)
 		registers--;
 	}
 
-	cout << input.c_str() << endl;
-	cout << output.c_str() << endl;
-
 	return output;
 }
 
-char Encoder::XOR(char a, char b) {
-	return (char)(((int)a + (int)b) % 2);
+string Encoder::XOR(char a, char b) {
+	return to_string((((int)a + (int)b) % 2));
+}
+
+string Encoder::read(string path) throw (invalid_argument) {
+
+	string input;
+
+	ifstream data_file;
+	string temp;
+
+	data_file.open(path.c_str());
+
+	if (data_file.fail()) {
+		throw invalid_argument("no file exists " + path);
+	}
+
+	while (data_file >> temp) {
+		input += temp;
+	}
+
+	data_file.close();
+
+	return input;
 }
 
 int main() {
 
-	string s = "10110";
-	cout << "Input: " << s.c_str() << endl;
-
+	string s;
 	Encoder* e = new Encoder();
+
+	try {
+		s = e->read("binaryFile.txt");
+	}
+	catch (const invalid_argument& iae) {
+		cout << "unable to read data: " << iae.what() << "\n";
+		exit(1);
+	}
+
+	cout << "Input: " << s.c_str() << endl;
 
 	s = e->encode(s);
 	cout << "Output: " << s.c_str() << endl;

@@ -1,5 +1,9 @@
 #pragma once
 #include <iostream>
+#include <stdexcept>
+#include <fstream>
+#include <string>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -10,7 +14,9 @@ public:
 	//Encoder(/*register setup?*/);
 	~Encoder();
 	string encode(string input);
+	string read(string path);
+	void write(string output);
 private:
-	char XOR(char a, char b);
+	string XOR(char a, char b);
 };
 

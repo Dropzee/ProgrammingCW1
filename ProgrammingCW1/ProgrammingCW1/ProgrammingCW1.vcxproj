@@ -123,6 +123,9 @@
   <ItemGroup>
     <ClCompile Include="Encoder.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="binaryFile.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
