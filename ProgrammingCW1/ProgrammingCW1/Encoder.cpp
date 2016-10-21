@@ -84,6 +84,8 @@ int main() {
 	s = e->encode(s);
 	cout << "Output: " << s.c_str() << endl;
 
+	e->write(s);
+
 	system("pause");
 
 	return 0;
