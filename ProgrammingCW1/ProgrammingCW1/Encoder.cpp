@@ -59,6 +59,13 @@ string Encoder::read(string path) throw (invalid_argument) {
 	return input;
 }
 
+void Encoder::write(string output) {
+	ofstream myfile;
+	myfile.open("test.txt");
+	myfile << output;
+	myfile.close();
+}
+
 int main() {
 
 	string s;
