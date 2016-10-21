@@ -17,6 +17,7 @@ public:
 	string read(string path);
 	void write(string output);
 private:
+	string inputPath;
 	string XOR(char a, char b);
 };
 

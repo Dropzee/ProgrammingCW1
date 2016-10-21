@@ -2,6 +2,7 @@
 
 Encoder::Encoder()
 {
+	inputPath = "binaryFile.txt";
 }
 
 
@@ -15,7 +16,7 @@ string Encoder::encode(string input)
 	input += "000";
 
 	//Set up pointer to registers
-	char* registers = &input[input.length() - 3];
+	char* registers = &input[input.length() - 4];
 
 	//Initalise output string to allow appending
 	string output = "";
@@ -23,8 +24,8 @@ string Encoder::encode(string input)
 	for (int i = 0; i <= (input.length() - 4); i++) {
 
 		//XOR & add to output
-		output += XOR(*(registers + 1), *(registers + 2));
-		output += XOR(*(registers - 1), *(registers + 0));
+		output += XOR(*(registers + 2), *(registers + 3));
+		output += XOR(*(registers + 0), *(registers + 1));
 
 		//Shift registers by moving pointer
 		registers--;
@@ -79,10 +80,7 @@ int main() {
 		exit(1);
 	}
 
-	cout << "Input: " << s.c_str() << endl;
-
 	s = e->encode(s);
-	cout << "Output: " << s.c_str() << endl;
 
 	e->write(s);
 
