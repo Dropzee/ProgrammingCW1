@@ -7,8 +7,8 @@
 using namespace std;
 
 //Generates all permutations and writes unique ones to file
-void generator(vector<string> outputs, string input, Encoder* e, FileIO* IO) {
-	
+void generator(vector<string> &outputs, string input, Encoder* e, FileIO* IO) {
+
 	string temp;
 
 	//All combinations from 0000 to 3333 in base 4
@@ -43,7 +43,8 @@ void generator(vector<string> outputs, string input, Encoder* e, FileIO* IO) {
 int main() {
 
 	string input;
-	vector<string> outputs;
+	vector<string> allOutputs;
+	vector<string> uniqueOutputs;
 
 	FileIO* io = new FileIO();
 	Encoder* e = new Encoder();
@@ -60,34 +61,41 @@ int main() {
 	while (true) {
 		switch (ui->menu()) {
 		case 1:
-			ui->generateAll();
-			break;
-		case 2:
-			ui->generateUnique();
+			if (allOutputs.empty()) {
+				generator(allOutputs, input, e, io);
+				ui->generateAll(true);
+			}
+			else {
+				ui->generateAll(false);
+			}	
+		case 2: 
+			//generator(outputs, input, e, io);
+			ui->generateUnique(false);
 			break;
 		case 3:
 			ui->generateCustom();
 			break;
 		case 4:
-			ui->viewAll();
+			ui->viewAll(false);
 			break;
 		case 5:
-			ui->viewUnique();
+			ui->viewUnique(false);
 			break;
 		case 6:
-			ui->viewCustom();
+			ui->viewCustom(false);
 			break;
 		case 7:
 			goto Exit;
 		default:
 			cout << "Please enter a menu option between 1-7!" << endl;
+		}
+
 	}
 
-	//generator(outputs, input, e, io);
+	Exit:
+		delete io;
+		delete e;
+		delete ui;
 
-Exit:
-	delete io;
-	delete e;
-
-	return 0;
+		return 0;
 }
