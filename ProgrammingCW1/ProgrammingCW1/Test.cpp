@@ -1,17 +1,18 @@
 #pragma once
 #include "Encoder.h"
 #include "FileIO.h"
+#include <vector>
 
 using namespace std;
 
 void generator(string* outputs, string input, Encoder* e, FileIO* IO) {
 	int count = 0;
-	for (int a = 0; a < 4; a++) {
-		for (int b = 0; b < 4; b++) {
-			for (int c = 0; c < 4; c++) {
-				for (int d = 0; d < 4; d++) {
-					outputs[count] = e->encode(input, a, b, c, d);
-					IO->write(outputs[count], "XOR1(" + to_string(a) + "," + to_string(b) + ") XOR2(" + to_string(c) + "," + to_string(d) + ")");
+	for (int xor1a = 0; xor1a < 4; xor1a++) {
+		for (int xor1b = 0; xor1b < 4; xor1b++) {
+			for (int xor2a = 0; xor2a < 4; xor2a++) {
+				for (int xor2b = 0; xor2b < 4; xor2b++) {
+					outputs[count] = e->encode(input, xor1a, xor1b, xor2a, xor2b);
+					IO->write(outputs[count], "XOR1(" + to_string(xor1a) + "," + to_string(xor1b) + ") XOR2(" + to_string(xor2a) + "," + to_string(xor2b) + ")");
 					count++;
 				}
 			}
@@ -20,7 +21,16 @@ void generator(string* outputs, string input, Encoder* e, FileIO* IO) {
 }
 
 void compare(string* outputs) {
-
+	for (int i = 0; i < 256; i++) {
+		vector<int> matches;
+		for (int j = 0; j < 256; j++) {
+			if (i != j) {
+				if (outputs[i].compare(outputs[j]) == 0) {
+					matches.push_back(j);
+				}
+			}
+		}
+	}
 }
 
 int main() {
