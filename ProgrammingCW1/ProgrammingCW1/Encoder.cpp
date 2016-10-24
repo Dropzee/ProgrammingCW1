@@ -30,7 +30,8 @@ string Encoder::encode(string input, int xor1a, int xor1b, int xor2a, int xor2b)
 		registers--;
 	}
 
-	return output;
+	//Reverse bit order
+	return string(output.rbegin(), output.rend());
 }
 
 string Encoder::XOR(char a, char b) {

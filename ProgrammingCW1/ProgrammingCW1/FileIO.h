@@ -11,6 +11,6 @@ public:
 	FileIO();
 	~FileIO();
 	string read(string path);
-	void write(string output);
+	void write(string output, string path);
 };
 
