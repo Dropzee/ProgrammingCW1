@@ -2,7 +2,6 @@
 
 Encoder::Encoder()
 {
-	inputPath = "binaryFile.txt";
 }
 
 
@@ -38,31 +37,3 @@ string Encoder::XOR(char a, char b) {
 	return to_string((((int)a + (int)b) % 2));
 }
 
-string Encoder::read() throw (invalid_argument) {
-
-	string input;
-
-	ifstream file;
-	string temp;
-
-	file.open(inputPath.c_str());
-
-	if (file.fail()) {
-		throw invalid_argument("no file exists " + inputPath);
-	}
-
-	while (file >> temp) {
-		input += temp;
-	}
-
-	file.close();
-
-	return input;
-}
-
-void Encoder::write(string output) {
-	ofstream myfile;
-	myfile.open("test.txt");
-	myfile << output;
-	myfile.close();
-}
