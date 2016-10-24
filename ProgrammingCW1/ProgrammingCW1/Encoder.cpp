@@ -9,6 +9,7 @@ Encoder::~Encoder()
 {
 }
 
+//Encode method
 string Encoder::encode(string input, int xor1a, int xor1b, int xor2a, int xor2b)
 {
 	//Append 000 as initial register state
@@ -34,6 +35,7 @@ string Encoder::encode(string input, int xor1a, int xor1b, int xor2a, int xor2b)
 	return string(output.rbegin(), output.rend());
 }
 
+//XOR Method
 string Encoder::XOR(char a, char b) {
 	return to_string((((int)a + (int)b) % 2));
 }

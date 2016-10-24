@@ -9,7 +9,7 @@ FileIO::~FileIO()
 {
 }
 
-
+//File Read
 string FileIO::read(string path) throw (invalid_argument) {
 
 	string input;
@@ -32,6 +32,7 @@ string FileIO::read(string path) throw (invalid_argument) {
 	return input;
 }
 
+//File Write
 void FileIO::write(string output, string name) {
 	ofstream myfile;
 	myfile.open("Outputs\\" + name + ".txt");
