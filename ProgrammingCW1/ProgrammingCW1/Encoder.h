@@ -11,10 +11,9 @@ class Encoder
 {
 public:
 	Encoder();
-	//Encoder(/*register setup?*/);
 	~Encoder();
-	string encode(string input);
-	string read(string path);
+	string encode(string input, int xor1a, int xor1b, int xor2a, int xor2b);
+	string read();
 	void write(string output);
 private:
 	string inputPath;

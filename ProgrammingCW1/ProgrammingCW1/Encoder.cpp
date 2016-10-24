@@ -10,7 +10,7 @@ Encoder::~Encoder()
 {
 }
 
-string Encoder::encode(string input)
+string Encoder::encode(string input, int xor1a, int xor1b, int xor2a, int xor2b)
 {
 	//Append 000 as initial register state
 	input += "000";
@@ -24,8 +24,8 @@ string Encoder::encode(string input)
 	for (int i = 0; i <= (input.length() - 4); i++) {
 
 		//XOR & add to output
-		output += XOR(*(registers + 2), *(registers + 3));
-		output += XOR(*(registers + 0), *(registers + 1));
+		output += XOR(*(registers + xor1a), *(registers + xor1b));
+		output += XOR(*(registers + xor2a), *(registers + xor2b));
 
 		//Shift registers by moving pointer
 		registers--;
@@ -38,24 +38,24 @@ string Encoder::XOR(char a, char b) {
 	return to_string((((int)a + (int)b) % 2));
 }
 
-string Encoder::read(string path) throw (invalid_argument) {
+string Encoder::read() throw (invalid_argument) {
 
 	string input;
 
-	ifstream data_file;
+	ifstream file;
 	string temp;
 
-	data_file.open(path.c_str());
+	file.open(inputPath.c_str());
 
-	if (data_file.fail()) {
-		throw invalid_argument("no file exists " + path);
+	if (file.fail()) {
+		throw invalid_argument("no file exists " + inputPath);
 	}
 
-	while (data_file >> temp) {
+	while (file >> temp) {
 		input += temp;
 	}
 
-	data_file.close();
+	file.close();
 
 	return input;
 }
@@ -65,26 +65,4 @@ void Encoder::write(string output) {
 	myfile.open("test.txt");
 	myfile << output;
 	myfile.close();
-}
-
-int main() {
-
-	string s;
-	Encoder* e = new Encoder();
-
-	try {
-		s = e->read("binaryFile.txt");
-	}
-	catch (const invalid_argument& iae) {
-		cout << "unable to read data: " << iae.what() << "\n";
-		exit(1);
-	}
-
-	s = e->encode(s);
-
-	e->write(s);
-
-	system("pause");
-
-	return 0;
 }

@@ -119,9 +119,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Encoder.h" />
+    <ClInclude Include="FileIO.h" />
+    <ClInclude Include="Generator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Encoder.cpp" />
+    <ClCompile Include="FileIO.cpp" />
+    <ClCompile Include="Generator.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="binaryFile.txt" />
