@@ -7,7 +7,7 @@
 using namespace std;
 
 //Generates all permutations and writes unique ones to file
-void generator(vector<string> &outputs, string input, Encoder* e, FileIO* IO) {
+void generator(vector<string> &outputs, vector<string> &names, string input, Encoder* e, FileIO* IO) {
 
 	string temp;
 
@@ -32,7 +32,9 @@ void generator(vector<string> &outputs, string input, Encoder* e, FileIO* IO) {
 					//If it has not occurred before save it
 					if (unique) {
 						outputs.push_back(temp);
-						IO->write(temp, "XOR1(" + to_string(xor1a) + "," + to_string(xor1b) + ") XOR2(" + to_string(xor2a) + "," + to_string(xor2b) + ")");
+						string name = "XOR1(" + to_string(xor1a) + "," + to_string(xor1b) + ") XOR2(" + to_string(xor2a) + "," + to_string(xor2b) + ")";
+						names.push_back(name);
+						IO->write(temp, name);
 					}
 				}
 			}
@@ -43,8 +45,8 @@ void generator(vector<string> &outputs, string input, Encoder* e, FileIO* IO) {
 int main() {
 
 	string input;
-	vector<string> allOutputs;
-	vector<string> uniqueOutputs;
+	vector<string> outputs;
+	vector<string> names;
 
 	FileIO* io = new FileIO();
 	Encoder* e = new Encoder();
@@ -52,48 +54,37 @@ int main() {
 
 	try {
 		input = io->read("binaryFile.txt");
+
+		while (true) {
+			switch (ui->menu()) {
+			case 1:
+				if (outputs.empty()) {
+					generator(outputs, names, input, e, io);
+					ui->generateAll(true);
+				}
+				else {
+					ui->generateAll(false);
+				}
+			case 2:
+				ui->inputCustom();
+				break;
+			case 3:
+				ui->viewAll(names, outputs);
+				break;
+			case 4:
+				goto Exit;
+			default:
+				cout << "Please enter a menu option between 1-5!" << endl;
+			}
+		}
 	}
 	catch (const invalid_argument& iae) {
-		cout << "unable to read data: " << iae.what() << "\n";
+		cout << iae.what() << endl;
 		exit(1);
 	}
 
-	while (true) {
-		switch (ui->menu()) {
-		case 1:
-			if (allOutputs.empty()) {
-				generator(allOutputs, input, e, io);
-				ui->generateAll(true);
-			}
-			else {
-				ui->generateAll(false);
-			}	
-		case 2: 
-			//generator(outputs, input, e, io);
-			ui->generateUnique(false);
-			break;
-		case 3:
-			ui->generateCustom();
-			break;
-		case 4:
-			ui->viewAll(false);
-			break;
-		case 5:
-			ui->viewUnique(false);
-			break;
-		case 6:
-			ui->viewCustom(false);
-			break;
-		case 7:
-			goto Exit;
-		default:
-			cout << "Please enter a menu option between 1-7!" << endl;
-		}
-
-	}
-
-	Exit:
-		delete io;
+Exit:
+	delete io;
 		delete e;
 		delete ui;
 

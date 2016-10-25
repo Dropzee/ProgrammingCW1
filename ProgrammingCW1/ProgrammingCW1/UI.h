@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <vector>
+#include <stdexcept>
 
 using namespace std;
 
@@ -10,10 +12,7 @@ public:
 	~UI();
 	int menu();
 	void generateAll(bool);
-	void generateUnique(bool);
-	void generateCustom();
-	void viewAll(bool);
-	void viewUnique(bool);
-	void viewCustom(bool);
+	void inputCustom();
+	void viewAll(vector<string> names, vector<string> outputs);
 };
 
