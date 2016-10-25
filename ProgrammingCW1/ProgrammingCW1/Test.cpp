@@ -7,7 +7,7 @@
 using namespace std;
 
 //Generates all permutations and writes unique ones to file
-void generator(vector<string> &outputs, vector<string*> &uniqueOutputs, string input, Encoder* e, FileIO* IO) {
+void generator(vector<string> &outputs, string input, Encoder* e, FileIO* IO) {
 
 	string temp;
 
@@ -19,12 +19,11 @@ void generator(vector<string> &outputs, vector<string*> &uniqueOutputs, string i
 
 					//Encode using combination to indicate XOR inputs (0 = Input, 1 = R1, 2 = R2, 3 = R3)
 					temp = e->encode(input, xor1a, xor1b, xor2a, xor2b);
-					outputs.push_back(temp);
 
 					//Test to see if the output has occurred before
 					bool unique = true;
-					for each(string* s in uniqueOutputs) {
-						if (s->compare(temp) == 0) {
+					for each(string s in outputs) {
+						if (s.compare(temp) == 0) {
 							unique = false;
 							break;
 						}
@@ -32,7 +31,7 @@ void generator(vector<string> &outputs, vector<string*> &uniqueOutputs, string i
 
 					//If it has not occurred before save it
 					if (unique) {
-						uniqueOutputs.push_back(&outputs.back());
+						outputs.push_back(temp);
 						IO->write(temp, "XOR1(" + to_string(xor1a) + "," + to_string(xor1b) + ") XOR2(" + to_string(xor2a) + "," + to_string(xor2b) + ")");
 					}
 				}
@@ -45,7 +44,7 @@ int main() {
 
 	string input;
 	vector<string> allOutputs;
-	vector<string*> uniqueOutputs;
+	vector<string> uniqueOutputs;
 
 	FileIO* io = new FileIO();
 	Encoder* e = new Encoder();
@@ -63,25 +62,29 @@ int main() {
 		switch (ui->menu()) {
 		case 1:
 			if (allOutputs.empty()) {
-				generator(allOutputs, uniqueOutputs, input, e, io);
+				generator(allOutputs, input, e, io);
 				ui->generateAll(true);
 			}
 			else {
 				ui->generateAll(false);
 			}	
-		case 2:
-			ui->generateCustom();
+		case 2: 
+			//generator(outputs, input, e, io);
+			ui->generateUnique(false);
 			break;
 		case 3:
-			ui->viewAll(false);
+			ui->generateCustom();
 			break;
 		case 4:
-			ui->viewUnique(false);
+			ui->viewAll(false);
 			break;
 		case 5:
-			ui->viewCustom(false);
+			ui->viewUnique(false);
 			break;
 		case 6:
+			ui->viewCustom(false);
+			break;
+		case 7:
 			goto Exit;
 		default:
 			cout << "Please enter a menu option between 1-7!" << endl;

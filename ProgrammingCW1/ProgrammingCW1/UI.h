@@ -10,6 +10,7 @@ public:
 	~UI();
 	int menu();
 	void generateAll(bool);
+	void generateUnique(bool);
 	void generateCustom();
 	void viewAll(bool);
 	void viewUnique(bool);
