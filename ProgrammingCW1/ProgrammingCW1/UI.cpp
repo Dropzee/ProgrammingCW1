@@ -13,9 +13,8 @@ int UI::menu() throw (invalid_argument) {
 	cout << "---------------- MENU ----------------" << endl;
 	cout << "1. Generate all unique permutations only" << endl;
 	cout << "2. Input custom permutation" << endl;
-	cout << "3. View all permutations" << endl;
-	cout << "4. View custom permutations" << endl;
-	cout << "5. Exit" << endl;
+	cout << "3. View all unique permutations" << endl;
+	cout << "4. Exit" << endl;
 	cout << "--------------------------------------" << endl;
 	cout << "Please choose an option: ";
 	int x;
@@ -36,9 +35,31 @@ void UI::generateAll(bool b) {
 	return;
 }
 
-void UI::inputCustom() {}
+void UI::inputCustom(string s, Encoder* e) {
+	cout << "--------------------------------------" << endl;
+	cout << "XOR inputs key:" << endl;
+	cout << "0 - Input Bit" << endl;
+	cout << "1 - Register 1" << endl;
+	cout << "2 - Register 2" << endl;
+	cout << "3 - Register 3" << endl;
+	cout << "--------------------------------------" << endl;
+	int ins[4];
+	string names[4] = {"XOR1 input A: ", "XOR1 input B: ", "XOR2 input A: ", "XOR2 input B: "};
+	for (int i = 0; i < 4; i++) {
+		cout << names[i];
+		if (!(cin >> ins[i])) {
+			throw invalid_argument("Invalid input.");
+		}
+		if (ins[i] < 0 || ins[i] > 3) {
+			throw out_of_range("Invalid input.");
+		}
+	}
+	cout << "--------------------------------------" << endl;
+	cout << e->encode(s, ins[0], ins[1], ins[2], ins[3]) << endl;
+	return;
+}
 
-void UI::viewAll(vector<string> names, vector<string> outputs) throw (invalid_argument) {
+void UI::viewAll(vector<string> names, vector<string> outputs) throw (invalid_argument, out_of_range) {
 	cout << "--------------------------------------" << endl;
 	if (outputs.empty()) {
 		cout << "No outputs generated, please generate first." << endl;
@@ -56,6 +77,9 @@ void UI::viewAll(vector<string> names, vector<string> outputs) throw (invalid_ar
 			throw invalid_argument("Invalid input.");
 		}
 		cout << "--------------------------------------" << endl;
+		if (x < 0 || x > (outputs.size()-1)) {
+			throw out_of_range("Invalid input.");
+		}
 		cout << outputs.at(x).c_str() << endl;
 	}
 	return;

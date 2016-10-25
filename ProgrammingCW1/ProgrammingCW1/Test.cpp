@@ -65,8 +65,9 @@ int main() {
 				else {
 					ui->generateAll(false);
 				}
+				break;
 			case 2:
-				ui->inputCustom();
+				ui->inputCustom(input, e);
 				break;
 			case 3:
 				ui->viewAll(names, outputs);
@@ -74,7 +75,7 @@ int main() {
 			case 4:
 				goto Exit;
 			default:
-				cout << "Please enter a menu option between 1-5!" << endl;
+				cout << "Please enter a menu option between 1-4!" << endl;
 			}
 		}
 	}
@@ -82,11 +83,15 @@ int main() {
 		cout << iae.what() << endl;
 		exit(1);
 	}
+	catch (const out_of_range& oore) {
+		cout << oore.what() << endl;
+		exit(1);
+	}
 
 Exit:
 	delete io;
-		delete e;
-		delete ui;
+	delete e;
+	delete ui;
 
-		return 0;
+	return 0;
 }
