@@ -12,12 +12,11 @@ UI::~UI()
 int UI::menu() {
 	cout << "---------------- MENU ----------------" << endl;
 	cout << "1. Generate all permutations" << endl;
-	cout << "2. Generate unique permutations only" << endl;
-	cout << "3. Input custom permutation" << endl;
-	cout << "4. View all permutations" << endl;
-	cout << "5. View unique permutations" << endl;
-	cout << "6. View custom permutations" << endl;
-	cout << "7. Exit" << endl;
+	cout << "2. Input custom permutation" << endl;
+	cout << "3. View all permutations" << endl;
+	cout << "4. View unique permutations" << endl;
+	cout << "5. View custom permutations" << endl;
+	cout << "6. Exit" << endl;
 	cout << "Please choose an option: " << endl;
 	int x;
 	cin >> x;
@@ -35,7 +34,6 @@ void UI::generateAll(bool b) {
 	return;
 }
 
-void UI::generateUnique(bool b) {}
 void UI::generateCustom() {}
 void UI::viewAll(bool b) {}
 void UI::viewUnique(bool b) {}
