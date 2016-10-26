@@ -13,10 +13,10 @@ Encoder::~Encoder()
 string Encoder::encode(string input, int xor1a, int xor1b, int xor2a, int xor2b)
 {
 	//Append 000 as initial register state
-	input += "000";
+	input + "000" + input;
 
 	//Set up pointer to registers
-	char* registers = &input[input.length() - 4];
+	char* registers = &input[0];
 
 	//Initalise output string to allow appending
 	string output = "";
@@ -28,11 +28,11 @@ string Encoder::encode(string input, int xor1a, int xor1b, int xor2a, int xor2b)
 		output += XOR(*(registers + xor2a), *(registers + xor2b));
 
 		//Shift registers by moving pointer
-		registers--;
+		registers++;
 	}
 
 	//Reverse bit order
-	return string(output.rbegin(), output.rend());
+	return output;
 }
 
 //XOR Method
