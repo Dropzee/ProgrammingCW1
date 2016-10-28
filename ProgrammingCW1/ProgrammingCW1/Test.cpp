@@ -55,8 +55,11 @@ int main() {
 	try {
 		input = io->read("binaryFile.txt");
 
+		//Interface loop
 		while (true) {
+
 			switch (ui->menu()) {
+			//1 - Generate permutations and encode
 			case 1:
 				if (outputs.empty()) {
 					generator(outputs, names, input, e, io);
@@ -66,12 +69,15 @@ int main() {
 					ui->generateAll(false);
 				}
 				break;
+			//2 - Custom permutation
 			case 2:
 				ui->inputCustom(input, e);
 				break;
+			//3 - View outputs
 			case 3:
 				ui->viewAll(names, outputs);
 				break;
+			//4 - Exit
 			case 4:
 				goto Exit;
 			default:
